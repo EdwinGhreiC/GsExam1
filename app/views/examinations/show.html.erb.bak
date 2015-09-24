@@ -1,0 +1,36 @@
+<h3><%= @examination.title %></h3>
+
+<%= form_tag '/exam/submit' do %>
+   <% sn=1 %>
+   <% @questions.each do |q| %>
+
+    <%= hidden_field_tag('question_id_' + sn.to_s, q.id) %>
+
+	<p>
+		<%= q.id.to_s + '. ' + q.description %>
+	</p>
+
+	<p>
+	    <%= fields_for 'qc' do |f| %>
+	    	<%= f.label(sn.to_s + '_a', 'A') %>
+	    	<%= f.radio_button(sn, 'A') %>
+	    	<%= f.label(sn.to_s + '_b', 'B') %>
+	    	<%= f.radio_button(sn, 'B') %>
+	    	<%= f.label(sn.to_s + '_c', 'C') %>
+	    	<%= f.radio_button(sn, 'C') %>
+	    	<%= f.label(sn.to_s + '_d', 'D') %>
+	    	<%= f.radio_button(sn, 'D') %>	    	
+	    <% end %>
+	</p>
+
+	<p>
+	    <% abcd = '@' %>
+		<% split_choices(q.choices).each do |s| %>
+			<%= abcd.next! + '. ' + s  %><br> <!-- #下次用有序列表试试 -->
+		<% end %>
+	</p>
+	<hr>
+	<% sn+=1 %>
+   <% end %>
+   <%= submit_tag("交卷") %>
+<% end %>

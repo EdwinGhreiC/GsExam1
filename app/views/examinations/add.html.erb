@@ -1,0 +1,27 @@
+<h3>添加考试</h3>
+
+<%= form_for(:examination, url: '/exam/add') do |f| %>
+	<p>
+		<%= f.label :title, '考试名称' %>
+		<%= f.text_field :title %>
+	</p>
+	
+	<p>
+		<%= f.label :exam_time, '考试时间' %>
+		<%= f.datetime_local_field :exam_time %>
+	</p>
+	<p>
+		<%= f.label :duration, '考试时长' %>
+		<%= f.text_field :duration %>		
+	</p>
+	
+	<p>
+		<%= f.label :level, '考试状态' %>
+		<%= f.select(:level, [['关闭',0],['模拟考试',1],['正式考试',2]]) %>
+	</p>
+	
+	<p>
+		<%= f.submit '保存' %>	
+	</p>
+	
+<% end %>

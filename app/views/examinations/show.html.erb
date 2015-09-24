@@ -1,0 +1,73 @@
+<% content_for :css do %>
+  <style type="text/css">
+	  .ui.card {
+	    width: 100%
+	  }
+  </style>
+<% end %>
+
+<div class="ui text container">
+	<h1 class="ui center aligned teal header"><%= @examination.title %>考试</h1>
+
+	<%= form_tag '/exam/submit' do %>
+	   <% sn=1 %>
+	   <% @rand_questions.each do |q| %>
+
+	    <%= hidden_field_tag('question_id_' + sn.to_s, q.id) %>
+
+        <div class="ui card">
+	        <div class="content">
+
+				<div class="header">
+					<%= q.id.to_s + '. ' + q.description %>
+				</div>
+
+				<div class="description">
+				    <% abcd = '@' %>
+					<% split_choices(q.choices).each do |s| %>
+						<%= abcd.next! + '. ' + s  %><br> <!-- #下次用有序列表试试 -->
+					<% end %>
+				</div>
+
+			</div>
+			
+			<div class="extra content">
+				<div class="inline fields">
+				    <%= fields_for 'qc' do |f| %>
+				    	<div class="field">
+					    	<div class="ui radio checkbox">
+						    	<%= f.label(sn.to_s + '_a', 'A') %>
+						    	<%= f.radio_button(sn, 'A') %>
+					    	</div>
+				    	</div>
+				    	<div class="field">
+					    	<div class="ui radio checkbox">
+						    	<%= f.label(sn.to_s + '_b', 'B') %>
+						    	<%= f.radio_button(sn, 'B') %>
+					    	</div>
+				    	</div>
+				    	<div class="field">
+					    	<div class="ui radio checkbox">
+						    	<%= f.label(sn.to_s + '_c', 'C') %>
+						    	<%= f.radio_button(sn, 'C') %>
+					    	</div>
+				    	</div>
+				    	<div class="field">
+					    	<div class="ui radio checkbox">
+						    	<%= f.label(sn.to_s + '_d', 'D') %>
+						    	<%= f.radio_button(sn, 'D') %>
+					    	</div>
+				    	</div>	    	
+				    <% end %>
+				</div>
+			</div>
+
+		</div>
+		<% sn+=1 %>
+	   <% end %>
+	   <p class="ui center aligned header"><%= submit_tag("交卷",:class=>"ui primary button") %></p>
+	<% end %>
+	<script>
+		$('.ui.radio.checkbox').checkbox();
+	</script>
+</div>

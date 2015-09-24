@@ -1,0 +1,76 @@
+<% content_for :css do %>
+  <style type="text/css">
+	  body {
+	    background-color: #FFFFFF;
+	  }
+	  .ui.menu .item img.logo {
+	    margin-right: 1.5em;
+	  }
+	  .main.container {
+	    margin-top: 7em;
+	  }
+	  .wireframe {
+	    margin-top: 2em;
+	  }
+	  .ui.footer.segment {
+	    margin: 5em 0em 0em;
+	    padding: 5em 0em;
+	  }
+  </style>
+<% end %>
+
+  <div class="ui fixed inverted menu">
+    <div class="ui container">
+      <div href="#" class="header item">
+        <%= image_tag 'logo.png', :class=>'logo' %>
+        Project Name
+      </div>
+      <a href="#" class="item">Home</a>
+      <a href="#" class="ui simple dropdown item">
+        Dropdown <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">Link Item</div>
+          <div class="item">Link Item</div>
+          <div class="divider"></div>
+          <div class="header">Header Item</div>
+          <div class="item">
+            <i class="dropdown icon"></i>
+            Sub Menu
+            <div class="menu">
+              <div class="item">Link Item</div>
+              <div class="item">Link Item</div>
+            </div>
+          </div>
+          <div class="item">Link Item</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+ <div class="ui main text container">
+    <h1 class="ui center aligned header">考试选择</h1>
+    <table class="ui celled table">
+		<thead>
+			<th>考试名称</th>
+			<th>考试时间</th>
+			<th>时长</th>
+			<th>状态</th>
+			<th>操作</th>
+		</thead>
+        <% @examinations.each do |e| %>
+		<tr>
+			<td><%= link_to e.title, show_examination_path(e) %></td>
+			<td><%= e.exam_time %></td>
+			<td><%= e.duration %></td>
+			<td><%= exam_status(e.level) %></td>
+			<td><%= link_to '删除', delete_examination_path(e), method: 'delete', data:{confirm: '确定删除该考试？'} %></td>
+		</tr>
+        <% end %>
+	</table>
+
+
+<p>
+	<%= link_to '添加考试', '/exam/add' %>
+</p>
+
+ </div>

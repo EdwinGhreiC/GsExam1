@@ -1,0 +1,26 @@
+<h3>华侨职专在线考试 - 编辑题目</h3>
+
+<%= form_for @question do |f| %>
+	<p>
+	   <%= f.label :description, '题目描述' %><br>
+	   <%= f.text_area :description, size: '60x5' %>
+	</p>
+
+	<p>
+		<%= f.label :choices,'选项' %><br>
+		<%= f.text_area :choices, size: '60x7' %>
+	</p>
+
+	<p>
+		<%= f.label :answer, '标准答案' %><br>
+		<%= f.text_field :answer %>
+	</p>
+
+	<p>
+		<%= f.collection_select(:Examination_id, @examinations, :id, :title) %>
+	</p>
+
+	<p>
+		<%= f.submit '保存' %>
+	</p>
+<% end %>

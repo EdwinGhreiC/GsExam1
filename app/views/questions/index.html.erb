@@ -1,0 +1,12 @@
+<h3>华侨职专在线考试</h3>
+
+<% @questions.each do |q| %>
+	<p><%= q.description %></p>
+	<p><%= q.choices %></p>
+	<p>[<%= link_to '编辑', edit_question_path(q) %>]</p>
+	<hr>
+<% end %>
+
+<p>
+	<%= link_to '添加题目', '/questions/add' %>
+</p>
